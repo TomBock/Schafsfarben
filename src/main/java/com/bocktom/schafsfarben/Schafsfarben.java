@@ -41,25 +41,33 @@ public final class Schafsfarben extends JavaPlugin {
 
 	private void registerListeners() {
 		FileConfiguration config = getConfig();
-		for (String key : config.getConfigurationSection("buttons").getKeys(false)) {
-			ConfigurationSection section = config.getConfigurationSection("buttons." + key);
+		ConfigurationSection buttons = config.getConfigurationSection("buttons");
+		if (buttons == null) {
+			getLogger().warning("Missing buttons section in config");
+			return;
+		}
+
+		String worldName = buttons.getString("world");
+		if(worldName == null) {
+			getLogger().warning("Missing world name");
+			return;
+		}
+		world = getServer().getWorld(worldName);
+		if(world == null) {
+			getLogger().warning("World " + worldName + " not found");
+			return;
+		}
+
+		for (String key : buttons.getKeys(false)) {
+			ConfigurationSection section = buttons.getConfigurationSection(key);
 			if (section == null) {
 				continue;
 			}
 
-			String worldName = section.getString("world");
 			int x = section.getInt("x");
 			int y = section.getInt("y");
 			int z = section.getInt("z");
-			if(worldName == null) {
-				getLogger().warning("Missing world name for " + key);
-				continue;
-			}
-			world = getServer().getWorld(worldName);
-			if(world == null) {
-				getLogger().warning("World " + worldName + " not found for " + key);
-				continue;
-			}
+
 			Location location = new Location(world, x, y, z);
 			DyeColor color;
 			try {
