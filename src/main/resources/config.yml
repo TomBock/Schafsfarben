@@ -1,0 +1,15 @@
+buttons:
+  red:
+    x: 0
+    y: 0
+    z: 0
+    world: world
+  blue:
+    x: 0
+    y: 0
+    z: 0
+    world: world
+region: schafspawner
+msg:
+  onclick: "<#00ff00>Die Farbe wurde auf %color% geändert!"
+  # https://docs.advntr.dev/minimessage/format

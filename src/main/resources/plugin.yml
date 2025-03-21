@@ -1,0 +1,5 @@
+name: PhoenixSchafsfarben
+version: '1.0'
+main: com.bocktom.schafsfarben.Schafsfarben
+api-version: '1.21'
+depend: [WorldGuard]
